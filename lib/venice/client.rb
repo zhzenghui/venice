@@ -30,24 +30,26 @@ module Venice
 
     def verify!(data, options = {})
       json = json_response_from_verifying_data(data)
-      status, receipt_attributes = json['status'].to_i, json['receipt']
+      
+      return json
+      # status, receipt_attributes = json['status'].to_i, json['receipt']
 
-      case status
-      when 0, 21006
-        receipt = Receipt.new(receipt_attributes)
+      # case status
+      # when 0, 21006
+      #   receipt = Receipt.new(receipt_attributes)
 
-        if latest_receipt_attributes = json['latest_receipt_info']
-          receipt.latest = Receipt.new(latest_receipt_attributes)
-        end
+      #   if latest_receipt_attributes = json['latest_receipt_info']
+      #     receipt.latest = Receipt.new(latest_receipt_attributes)
+      #   end
 
-        if latest_expired_receipt_attributes = json['latest_expired_receipt_info']
-          receipt.latest_expired = Receipt.new(latest_expired_receipt_attributes)
-        end
+      #   if latest_expired_receipt_attributes = json['latest_expired_receipt_info']
+      #     receipt.latest_expired = Receipt.new(latest_expired_receipt_attributes)
+      #   end
 
-        return receipt
-      else
-        raise Receipt::VerificationError.new(status)
-      end
+      #   return receipt
+      # else
+      #   raise Receipt::VerificationError.new(status)
+      # end
     end
 
     private
